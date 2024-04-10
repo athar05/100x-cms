@@ -15,6 +15,16 @@ With Docker
 
 * ```docker compose up```
 
+**Note:** 
+
+* You might encounter `Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:5432 -> 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use` when you run  ```docker compose up```. 
+* This means that there is already a proccess running on port 5432, typically a PostgreSQL service. Follow the below steps to resolve the issue: 
+- Get the pid of the proccess that is running on port 5432: ```sudo lsof -i :5432```
+- Terminate all the processes that are running on this port: ```sudo kill -9 <pid>```
+- Run the command again to verify no process is running now: ```sudo lsof -i :5432```
+- Run ```docker compose up``` again
+
+
 Without Docker
 * ```npm install```
 * ```npm run db:seed``` to seed the database
